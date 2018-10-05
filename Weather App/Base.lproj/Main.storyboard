@@ -20,7 +20,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Cities" id="buV-Zu-SUT"/>
+                    <tabBarItem key="tabBarItem" title="Cities" image="cities" id="buV-Zu-SUT"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -33,14 +33,37 @@
                     <view key="view" contentMode="scaleToFill" id="Wqu-up-XsA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06N-nl-vRe">
+                                <rect key="frame" x="117" y="357" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tyj-xM-nWf">
+                                <rect key="frame" x="117" y="439" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3n-cd-M5h">
+                                <rect key="frame" x="49" y="42" width="266" height="236"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="rFY-sz-ZZN"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Current Weather" id="fYu-90-e6z"/>
+                    <tabBarItem key="tabBarItem" title="Current Weather" image="weather" id="fYu-90-e6z"/>
+                    <connections>
+                        <outlet property="imageView" destination="b3n-cd-M5h" id="Dsu-Ih-u3F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNL-30-Q2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="1110"/>
+            <point key="canvasLocation" x="516" y="1109.5952023988007"/>
         </scene>
         <!--Forecasts-->
         <scene sceneID="j8s-sS-XPH">
@@ -64,7 +87,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jlj-St-xh2"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Forecasts" id="yZQ-4f-VEL"/>
+                    <tabBarItem key="tabBarItem" title="Forecasts" image="forecast" id="yZQ-4f-VEL"/>
                     <connections>
                         <outlet property="forecastsTableView" destination="qIc-he-ybU" id="Dv4-UQ-GEp"/>
                     </connections>
@@ -94,4 +117,9 @@
             <point key="canvasLocation" x="693.60000000000002" y="300.89955022488761"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cities" width="40" height="40"/>
+        <image name="forecast" width="40" height="40"/>
+        <image name="weather" width="40" height="40"/>
+    </resources>
 </document>

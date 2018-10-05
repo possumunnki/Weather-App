@@ -10,10 +10,14 @@ import UIKit
 
 class CurrentWeatherViewController: UIViewController {
     
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        fetchUrl(url: "https://swapi.co/api/people/")
+        fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=Tampere,fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
+        let weatherIcon = UIImage(named: "clear.png")
+        self.imageView.image = weatherIcon
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,10 +41,18 @@ class CurrentWeatherViewController: UIViewController {
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
         let resstr = String(data: data!, encoding: String.Encoding.utf8)
-        print(resstr!)
+        
+        do {
+            let currentWeather = try JSONDecoder().decode(CurrentWeather.self, from: data!)
+            
+            
+        } catch {
+            print(error)
+        }
         // Execute stuff in UI thread
-        DispatchQueue.main.async(execute: {() in
+        /*DispatchQueue.main.async(execute: {() in
             NSLog(resstr!)
-        })
+        })*/
     }
+    
 }
