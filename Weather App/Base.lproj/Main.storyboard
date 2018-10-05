@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D8W-l3-1z7">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Cities-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ChosenCityViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Cities" id="buV-Zu-SUT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1632.8" y="300.89955022488761"/>
+        </scene>
+        <!--Current Weather-->
+        <scene sceneID="kwI-CI-Iit">
+            <objects>
+                <viewController id="sBP-2r-KSi" customClass="CurrentWeatherViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wqu-up-XsA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="rFY-sz-ZZN"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Current Weather" id="fYu-90-e6z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pNL-30-Q2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="516" y="1110"/>
+        </scene>
+        <!--Forecasts-->
+        <scene sceneID="j8s-sS-XPH">
+            <objects>
+                <viewController id="duW-FZ-2ij" customClass="WeatherForecastViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ydO-PM-MQD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qIc-he-ybU">
+                                <rect key="frame" x="8" y="28" width="359" height="582"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jlj-St-xh2" firstAttribute="trailing" secondItem="qIc-he-ybU" secondAttribute="trailing" constant="8" id="0C8-bn-qRr"/>
+                            <constraint firstItem="qIc-he-ybU" firstAttribute="top" secondItem="Jlj-St-xh2" secondAttribute="top" constant="8" id="VaI-Ca-AEn"/>
+                            <constraint firstItem="Jlj-St-xh2" firstAttribute="bottom" secondItem="qIc-he-ybU" secondAttribute="bottom" constant="8" id="aWe-Q3-ddy"/>
+                            <constraint firstItem="qIc-he-ybU" firstAttribute="leading" secondItem="Jlj-St-xh2" secondAttribute="leading" constant="8" id="erW-XE-pgI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jlj-St-xh2"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Forecasts" id="yZQ-4f-VEL"/>
+                    <connections>
+                        <outlet property="forecastsTableView" destination="qIc-he-ybU" id="Dv4-UQ-GEp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tci-0O-jUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1788" y="1089"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="H4k-Mn-xFN">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="D8W-l3-1z7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dpr-EE-gDM">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="sBP-2r-KSi" kind="relationship" relationship="viewControllers" id="lNa-c4-GjU"/>
+                        <segue destination="duW-FZ-2ij" kind="relationship" relationship="viewControllers" id="5Xd-P9-dSq"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ySw-N6-aAS"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n8l-x3-JY2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="693.60000000000002" y="300.89955022488761"/>
+        </scene>
+    </scenes>
+</document>
