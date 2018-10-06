@@ -17,11 +17,14 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "sample cell", for: indexPath)
         
-        //cell.textLabel?.text = self.data[indexPath.row]
-        let cell = UITableViewCell()
-        return cell
+        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "identifier")
+        if (cell == nil) {
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "identifier")
+        }
+        cell?.textLabel?.text = self.data[indexPath.row]
+        
+        return cell!
     }
     
     

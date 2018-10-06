@@ -12,6 +12,9 @@ class CurrentWeatherViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var CityNameLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
