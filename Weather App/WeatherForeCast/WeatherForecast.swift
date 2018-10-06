@@ -8,12 +8,10 @@
 
 import Foundation
 
-
 struct WeatherForecast: Decodable {
+    let list: [CurrentWeather]
     
-    let cod: Int
-    let message: String
-    let cnt: Int
-    let list: [WeatherData]
-    
+    enum CodingKeys: String, CodingKey {
+        case list = "list"
+    }
 }

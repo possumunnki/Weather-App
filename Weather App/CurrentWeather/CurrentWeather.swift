@@ -9,7 +9,6 @@
 import Foundation
 
 struct CurrentWeather: Decodable {
-    
     let main: WeatherMain
     let weatherData: [WeatherData]
     let city: String

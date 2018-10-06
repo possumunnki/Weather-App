@@ -53,6 +53,7 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         // Do any additional setup after loading the view, typically from a nib.
         self.forecastsTableView.dataSource = self
         self.forecastsTableView.delegate = self
+                fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast/?q=Tampere,fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,7 +75,6 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
-        let resstr = String(data: data!, encoding: String.Encoding.utf8)
         
         guard let weatherForecast = try? JSONDecoder().decode(WeatherForecast.self, from: data!) else {
             print("Error")
@@ -82,7 +82,6 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         }
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
-            //NSLog(resstr!)
             print(weatherForecast)
         })
     }
