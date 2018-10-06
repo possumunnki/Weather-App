@@ -67,7 +67,7 @@ class CurrentWeatherViewController: UIViewController {
         self.weatherImageView.image = UIImage(named: imageName)
         print("temp:", weather.main.temp)
         let celcius = fahrnheitToCelcius(fahrenheit: weather.main.temp)
-        self.tempLabel.text = String(celcius) + " °C"
+        self.tempLabel.text = String(format: "%.1f",celcius) + " °C"
         
     }
     

@@ -98,11 +98,9 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         
         for data in weatherForecast.list {
             let imageName = data.weather[0].icon
-            let condition = data.weather[0].description + " " + String(self.fahrnheitToCelcius(fahrenheit: data.main.temp))
+            let condition = data.weather[0].description + " " + String(format: "%.1f",self.fahrnheitToCelcius(fahrenheit: data.main.temp)) + " °C"
+            
             let dataTime = data.dt_txt
-            //print("imageName: ", imageName)
-            //print("condition: ", condition)
-            //print("dataTime: ", dataTime)
             
             let weatherData = WeatherCellData(imageName: imageName, condition: condition, dateTime: dataTime!)
             dataList.append(weatherData)
