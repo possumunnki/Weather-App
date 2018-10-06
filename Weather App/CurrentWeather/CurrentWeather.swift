@@ -17,7 +17,6 @@ struct CurrentWeather: Decodable {
     enum CodingKeys: String, CodingKey {
         case main = "main"
         case weather = "weather"
-
         case dt_txt = "dt_txt"
     }
     

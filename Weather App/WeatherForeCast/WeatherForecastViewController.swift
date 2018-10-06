@@ -35,10 +35,11 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.weatherCellDatas = self.createArray()
+        //self.weatherCellDatas = createArray()
         self.forecastsTableView.dataSource = self
         self.forecastsTableView.delegate = self
         self.fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast/?q=Tampere,fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
+        print(self.weatherCellDatas)
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,16 +62,17 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
-        let resstr = String(data: data!, encoding: String.Encoding.utf8)
-        print(resstr)
         
         guard let weatherForecast = try? JSONDecoder().decode(WeatherForecast.self, from: data!) else {
             print("Error")
             return
         }
-        print(weatherForecast)
+
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
+            self.weatherCellDatas = self.createForecastArray(weatherForecast: weatherForecast)
+            print(self.weatherCellDatas)
+            self.forecastsTableView.reloadData()
         })
     }
     
@@ -91,5 +93,25 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         return dataList
     }
     
+    func createForecastArray(weatherForecast: WeatherForecast) -> [WeatherCellData] {
+        var dataList: [WeatherCellData] = []
+        
+        for data in weatherForecast.list {
+            let imageName = data.weather[0].icon
+            let condition = data.weather[0].description + " " + String(self.fahrnheitToCelcius(fahrenheit: data.main.temp))
+            let dataTime = data.dt_txt
+            //print("imageName: ", imageName)
+            //print("condition: ", condition)
+            //print("dataTime: ", dataTime)
+            
+            let weatherData = WeatherCellData(imageName: imageName, condition: condition, dateTime: dataTime!)
+            dataList.append(weatherData)
+        }
+        return dataList
+    }
+    
+    func fahrnheitToCelcius(fahrenheit: Double) -> Double {
+        return (fahrenheit - 32) * (5/9)
+    }
     
 }
