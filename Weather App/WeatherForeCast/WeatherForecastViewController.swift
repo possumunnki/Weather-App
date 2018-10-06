@@ -9,25 +9,44 @@
 import UIKit
 
 class WeatherForecastViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let data = ["Hattivatti", "Nuuskamuikkunen", "Muumipeikko", "Nipsu"]
+    var weatherCellDatas: [WeatherCellData] = []
     @IBOutlet weak var forecastsTableView: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.data.count
+        return self.weatherCellDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //creating some weather data:
         
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "identifier")
+        
+        
+        
+        /*var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as! WeatherUITableViewCell
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "identifier")
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "WeatherCell")
         }
-        cell?.textLabel?.text = self.data[indexPath.row]
+        cell?.textLabel?.text = self.weatherCellDatas[indexPath.row]*/
         
-        return cell!
+        return UITableViewCell()
     }
     
-    
+    func createArray() -> [WeatherCellData] {
+        var dataList: [WeatherCellData] = []
+        
+        let weatherData1 = WeatherCellData(imageName: "01d", condition: "aurinkoinen", dateTime: "01/01/2018")
+        let weatherData2 = WeatherCellData(imageName: "02d", condition: "aurinkoinen", dateTime: "01/01/2018")
+        let weatherData3 = WeatherCellData(imageName: "03d", condition: "aurinkoinen", dateTime: "01/01/2018")
+        let weatherData4 = WeatherCellData(imageName: "01d", condition: "aurinkoinen", dateTime: "01/01/2018")
+        let weatherData5 = WeatherCellData(imageName: "02d", condition: "aurinkoinen", dateTime: "01/01/2018")
+        
+        dataList.append(weatherData1)
+        dataList.append(weatherData2)
+        dataList.append(weatherData3)
+        dataList.append(weatherData4)
+        dataList.append(weatherData5)
+        return dataList
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +58,33 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchUrl(url : String) {
+        let config = URLSessionConfiguration.default
+        
+        let session = URLSession(configuration: config)
+        
+        let url : URL? = URL(string: url)
+        
+        let task = session.dataTask(with: url!, completionHandler: doneFetching);
+        
+        // Starts the task, spawns a new thread and calls the callback function
+        task.resume();
+    }
+    
+    func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
+        let resstr = String(data: data!, encoding: String.Encoding.utf8)
+        
+        guard let weatherForecast = try? JSONDecoder().decode(WeatherForecast.self, from: data!) else {
+            print("Error")
+            return
+        }
+        // Execute stuff in UI thread
+        DispatchQueue.main.async(execute: {() in
+            //NSLog(resstr!)
+            print(weatherForecast)
+        })
     }
     
     

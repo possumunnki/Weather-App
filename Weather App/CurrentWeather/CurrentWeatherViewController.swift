@@ -45,17 +45,15 @@ class CurrentWeatherViewController: UIViewController {
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
         let resstr = String(data: data!, encoding: String.Encoding.utf8)
         
-        do {
-            let currentWeather = try JSONDecoder().decode(CurrentWeather.self, from: data!)
-            
-            
-        } catch {
-            print(error)
+        guard let currentWeather = try? JSONDecoder().decode(CurrentWeather.self, from: data!) else {
+            print("Error")
+            return
         }
         // Execute stuff in UI thread
-        /*DispatchQueue.main.async(execute: {() in
-            NSLog(resstr!)
-        })*/
+        DispatchQueue.main.async(execute: {() in
+            //NSLog(resstr!)
+            print(currentWeather)
+        })
     }
     
 }
