@@ -19,16 +19,59 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //creating some weather data:
         
+        let data = weatherCellDatas[indexPath.row]
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as! WeatherUITableViewCell
+        cell.setWeatherCellData(weatherCellData: data)
         
-        
-        /*var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as! WeatherUITableViewCell
-        if (cell == nil) {
+        /*if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "WeatherCell")
-        }
-        cell?.textLabel?.text = self.weatherCellDatas[indexPath.row]*/
+        }*/
         
-        return UITableViewCell()
+        
+        return cell
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.weatherCellDatas = self.createArray()
+        self.forecastsTableView.dataSource = self
+        self.forecastsTableView.delegate = self
+        self.fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast/?q=Tampere,fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+        // Dispose of any resources that can be recreated.
+    }
+
+    func fetchUrl(url : String) {
+        let config = URLSessionConfiguration.default
+        
+        let session = URLSession(configuration: config)
+        
+        let url : URL? = URL(string: url)
+        
+        let task = session.dataTask(with: url!, completionHandler: self.doneFetching);
+        
+        // Starts the task, spawns a new thread and calls the callback function
+        task.resume();
+    }
+    
+    func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
+        let resstr = String(data: data!, encoding: String.Encoding.utf8)
+        print(resstr)
+        
+        guard let weatherForecast = try? JSONDecoder().decode(WeatherForecast.self, from: data!) else {
+            print("Error")
+            return
+        }
+        print(weatherForecast)
+        // Execute stuff in UI thread
+        DispatchQueue.main.async(execute: {() in
+        })
     }
     
     func createArray() -> [WeatherCellData] {
@@ -46,44 +89,6 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         dataList.append(weatherData4)
         dataList.append(weatherData5)
         return dataList
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.forecastsTableView.dataSource = self
-        self.forecastsTableView.delegate = self
-                fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast/?q=Tampere,fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func fetchUrl(url : String) {
-        let config = URLSessionConfiguration.default
-        
-        let session = URLSession(configuration: config)
-        
-        let url : URL? = URL(string: url)
-        
-        let task = session.dataTask(with: url!, completionHandler: doneFetching);
-        
-        // Starts the task, spawns a new thread and calls the callback function
-        task.resume();
-    }
-    
-    func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
-        
-        guard let weatherForecast = try? JSONDecoder().decode(WeatherForecast.self, from: data!) else {
-            print("Error")
-            return
-        }
-        // Execute stuff in UI thread
-        DispatchQueue.main.async(execute: {() in
-            print(weatherForecast)
-        })
     }
     
     
