@@ -60,14 +60,14 @@ class CurrentWeatherViewController: UIViewController {
     }
     
     func setUI(weather: CurrentWeather) {
-        print("city name:", weather.city)
-        self.cityNameLabel.text = weather.city
-        print("Image:",  weather.weatherData[0].icon)
-        let imageName = weather.weatherData[0].icon + ".png"
+        print("city name:", self.cityName)
+        self.cityNameLabel.text = self.cityName
+        print("Image:",  weather.weather[0].icon)
+        let imageName = weather.weather[0].icon + ".png"
         self.weatherImageView.image = UIImage(named: imageName)
         print("temp:", weather.main.temp)
         let celcius = fahrnheitToCelcius(fahrenheit: weather.main.temp)
-        self.tempLabel.text = String(celcius) + " °C"
+        self.tempLabel.text = String(format: "%.1f",celcius) + " °C"
         
     }
     

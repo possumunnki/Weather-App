@@ -10,26 +10,34 @@ import Foundation
 
 struct CurrentWeather: Decodable {
     let main: WeatherMain
-    let weatherData: [WeatherData]
-    let city: String
+    let weather: [WeatherData]
+
     let dt_txt: String?
     
     enum CodingKeys: String, CodingKey {
-        case main
-        case weatherData = "weather"
-        case city = "name"
-        case dt_txt
+        case main = "main"
+        case weather = "weather"
+        case dt_txt = "dt_txt"
     }
     
 }
 
 struct WeatherMain: Decodable {
     let temp: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case temp = "temp"
+    }
 }
 
 struct WeatherData: Decodable {
-    let id: Int
     let main: String
     let description: String
     let icon: String
+    
+    enum CodingKeys: String, CodingKey {
+        case main = "main"
+        case description = "description"
+        case icon = "icon"
+    }
 }
