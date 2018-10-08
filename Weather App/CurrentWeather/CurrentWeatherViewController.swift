@@ -54,18 +54,16 @@ class CurrentWeatherViewController: UIViewController {
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             //NSLog(resstr!)
-            print(currentWeather)
             self.setUI(weather: currentWeather)
         })
     }
     
     func setUI(weather: CurrentWeather) {
-        print("city name:", self.cityName)
+        //sets city name on label
         self.cityNameLabel.text = self.cityName
-        print("Image:",  weather.weather[0].icon)
         let imageName = weather.weather[0].icon + ".png"
         self.weatherImageView.image = UIImage(named: imageName)
-        print("temp:", weather.main.temp)
+        //converts fahrenheit to celcius and sets on temp label
         let celcius = fahrnheitToCelcius(fahrenheit: weather.main.temp)
         self.tempLabel.text = String(format: "%.1f",celcius) + " °C"
         
