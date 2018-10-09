@@ -12,6 +12,7 @@ class WeatherCellData {
     var image: UIImage
     var condition: String
     var dateTime: String
+    
     init(imageName: String, condition: String, dateTime: String) {
         self.image = UIImage(named: imageName + ".png")!
         self.condition = condition
