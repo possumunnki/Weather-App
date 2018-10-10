@@ -16,10 +16,23 @@ public class WeatherFetcher {
 
     
     func fetchCurrentWeather(cityName: String) -> CurrentWeather? {
-        let url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1"
-        fetchUrl(url: url, type: self.CURRENT_WEATHER)
+        let queue = DispatchQueue.main
+        queue.async {
+            let url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1"
+            self.fetchUrl(url: url, type: self.CURRENT_WEATHER)
+        }
+
+        return self.currentWeather!
+    }
+    
+    func fetchCurrentWeather2(cityName: String, completion: @escaping(CurrentWeather?) -> ())
+    {
+
+            let url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1"
+            self.fetchUrl(url: url, type: self.CURRENT_WEATHER)
         
-        return self.currentWeather
+        completion(self.currentWeather)
+        print(self.currentWeather)
     }
     
     func fetchWeatherForecast(cityName: String) -> WeatherForecast {
@@ -56,7 +69,9 @@ public class WeatherFetcher {
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             //NSLog(resstr!)
+            print("Done Fetching!!")
             self.currentWeather = currentWeather
+            
         })
     }
     

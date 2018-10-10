@@ -15,12 +15,23 @@ class CurrentWeatherViewController: UIViewController {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
     var cityName = "Tampere"
-    
+    var weatherFetcher = WeatherFetcher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
+        /*let queue = DispatchQueue.main
+        queue.async {
+            self.weatherFetcher.fetchCurrentWeather2(cityName: self.cityName) {response in
+                if let response = response {
+                    self.setUI(weather: response)
+                   
+                }
+                 print("Setting UI!")
+            }
+        }*/
+        
 
     }
     
