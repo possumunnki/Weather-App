@@ -35,5 +35,25 @@ class EditCitiesViewController:UITableViewController {
         }
     }
     
-    
+    override func tableView(_ tableVew: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if indexPath.row == 0 {
+            let notAbleButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "Not able to delete this") {(action, index) -> Void in
+                
+                self.tableView.reloadData()
+            }
+            notAbleButton.backgroundColor = UIColor.darkGray
+            return [notAbleButton]
+            
+        } else {
+            let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "DELETE") {(action, index) -> Void in
+                self.cityNames.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.tableView.reloadData()
+            }
+            deleteButton.backgroundColor = UIColor.red
+            return [deleteButton]
+        }
+
+        
+    }
 }
