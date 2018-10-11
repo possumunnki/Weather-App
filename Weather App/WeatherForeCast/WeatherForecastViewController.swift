@@ -20,7 +20,6 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         //creating some weather data:
         
         let data = weatherCellDatas[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as! WeatherUITableViewCell
         cell.setWeatherCellData(weatherCellData: data)
         

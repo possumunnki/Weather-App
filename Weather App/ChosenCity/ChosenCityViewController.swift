@@ -8,10 +8,28 @@
 
 import UIKit
 
-class ChosenCityViewController: UIViewController {
+class ChosenCityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
+    @IBOutlet weak var cityTableView: UITableView!
+    var cityNames: [String] = ["Tampere", "Turku", "Helsinki"]
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.cityNames.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let data: String = cityNames[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell") as! CityUITableViewCell
+        cell.setUI(cityName: data)
+        
+        return cell
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.cityTableView.dataSource = self
+        self.cityTableView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -20,6 +38,11 @@ class ChosenCityViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    private func tableView(_ tableView: UITableView, commit eiditingStyle: UITableViewStyle, forRowAt indexPath: IndexPath) {
+        if indexPath.row != 0 {
+            self.cityNames.remove(at: indexPath.row)
+            self.cityTableView.reloadData()
+        }
+    }
     
 }
