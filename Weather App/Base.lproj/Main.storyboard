@@ -133,7 +133,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axc-8Y-cdr">
-                                <rect key="frame" x="337" y="110" width="30" height="30"/>
+                                <rect key="frame" x="8" y="110" width="359" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Add"/>
                                 <userDefinedRuntimeAttributes>
@@ -145,6 +145,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="axc-8Y-cdr" firstAttribute="leading" secondItem="SDG-By-93V" secondAttribute="leading" constant="8" id="X16-4A-BE9"/>
                             <constraint firstItem="SDG-By-93V" firstAttribute="trailing" secondItem="cRm-ZG-O62" secondAttribute="trailing" constant="8" id="bN3-z1-Ji1"/>
                             <constraint firstItem="SDG-By-93V" firstAttribute="trailing" secondItem="axc-8Y-cdr" secondAttribute="trailing" constant="8" id="eiM-c6-txO"/>
                             <constraint firstItem="cRm-ZG-O62" firstAttribute="leading" secondItem="SDG-By-93V" secondAttribute="leading" constant="8" id="vc0-qA-Lns"/>

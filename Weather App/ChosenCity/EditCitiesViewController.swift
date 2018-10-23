@@ -36,6 +36,7 @@ class EditCitiesViewController:UITableViewController {
     }
     
     override func tableView(_ tableVew: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        //avoids user to delete "Use GPS" -row
         if indexPath.row == 0 {
             let notAbleButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "Not able to delete this") {(action, index) -> Void in
                 
@@ -43,7 +44,7 @@ class EditCitiesViewController:UITableViewController {
             }
             notAbleButton.backgroundColor = UIColor.darkGray
             return [notAbleButton]
-            
+        //user is able to delete the other row by swiping left
         } else {
             let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "DELETE") {(action, index) -> Void in
                 self.cityNames.remove(at: indexPath.row)

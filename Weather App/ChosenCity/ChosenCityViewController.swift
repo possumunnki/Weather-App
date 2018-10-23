@@ -12,6 +12,7 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
     
     
     @IBOutlet weak var cityTableView: UITableView!
+    
     var cityNames: [String] = ["Tampere", "Turku", "Helsinki"]
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,6 +31,7 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         self.cityTableView.dataSource = self
         self.cityTableView.delegate = self
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -45,4 +47,25 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func saveList() {
+        let defaultDB = UserDefaults.standard
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: self.cityNames, requiringSecureCoding: false)
+            defaultDB.set(data, forKey: "list")
+            defaultDB.synchronize()
+        } catch {
+            NSLog("Could not save!")
+        }
+    }
+    
+    func loadList() {
+        let defaultDB = UserDefaults.standard
+        let data = defaultDB.object(forKey: "list") as! Data
+        do {
+            let list = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
+            cityNames = list.cities
+        } catch {
+            NSLog("Could not load!")
+        }
+    }
 }
