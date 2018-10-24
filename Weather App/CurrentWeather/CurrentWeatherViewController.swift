@@ -10,10 +10,16 @@ import UIKit
 
 class CurrentWeatherViewController: UIViewController {
     
+
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var tempLabel: UILabel!
+    var cityName = ""
+    var weatherFetcher = WeatherFetcher()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        fetchUrl(url: "https://swapi.co/api/people/")
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -21,6 +27,13 @@ class CurrentWeatherViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if cityName != DataHandler.loadCurrentCity() {
+            cityName = DataHandler.loadCurrentCity()
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
+            NSLog("FETCHING")
+        }
+    }
     
     func fetchUrl(url : String) {
         let config = URLSessionConfiguration.default
@@ -36,11 +49,33 @@ class CurrentWeatherViewController: UIViewController {
     }
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
-        let resstr = String(data: data!, encoding: String.Encoding.utf8)
-        print(resstr!)
+        //let resstr = String(data: data!, encoding: String.Encoding.utf8)
+        
+        guard let currentWeather = try? JSONDecoder().decode(CurrentWeather.self, from: data!) else {
+            print("Error")
+            return
+        }
+        
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
-            NSLog(resstr!)
+            //NSLog(resstr!)
+            self.setUI(weather: currentWeather)
         })
     }
+    
+    func setUI(weather: CurrentWeather) {
+        //sets city name on label
+        self.cityNameLabel.text = self.cityName
+        let imageName = weather.weather[0].icon + ".png"
+        self.weatherImageView.image = UIImage(named: imageName)
+        //converts fahrenheit to celcius and sets on temp label
+        let celcius = fahrnheitToCelcius(fahrenheit: weather.main.temp)
+        self.tempLabel.text = String(format: "%.1f",celcius) + " °C"
+        
+    }
+    
+    func fahrnheitToCelcius(fahrenheit: Double) -> Double {
+        return (fahrenheit - 32) * (5/9)
+    }
+    
 }
