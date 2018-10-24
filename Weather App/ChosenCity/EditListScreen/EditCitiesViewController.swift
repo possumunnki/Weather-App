@@ -35,12 +35,16 @@ class EditCitiesViewController:UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destViewController = segue.destination as! ChosenCityViewController
-        destViewController.cityNames = self.cityNames
-        print(self.cityNames)
-        
+        let destViewController = segue.destination as! AddCityViewController
+        destViewController.cityNames = cityNames
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loadList()
+        self.tableView.reloadData()
+        
+    }
     override func tableView(_ tableVew: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //avoids user to delete "Use GPS" -row
         if indexPath.row == 0 {
@@ -75,5 +79,23 @@ class EditCitiesViewController:UITableViewController {
         } catch {
             NSLog("Could not save!")
         }
+    }
+    func loadList() {
+        let defaultDB = UserDefaults.standard
+        // checks that data of city list exists
+        if let data = defaultDB.object(forKey: "list") as! Data? {
+            do {
+                let cities = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
+                self.cityNames = cities.cities
+                NSLog("Loaded")
+            } catch {
+                NSLog("Could not load!")
+                self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
+            }
+            // if not found, creates default list
+        } else {
+            self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
+        }
+        
     }
 }

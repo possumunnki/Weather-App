@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D8W-l3-1z7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D8W-l3-1z7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         <!--Chosen City View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ChosenCityViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="CitiesScreen" id="BYZ-38-t0r" customClass="ChosenCityViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,7 +72,7 @@
         <!--Edit Cities View Controller-->
         <scene sceneID="TSq-lZ-Woo">
             <objects>
-                <tableViewController id="uoT-zR-Bq0" customClass="EditCitiesViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="EditScreen" id="uoT-zR-Bq0" customClass="EditCitiesViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2ez-lb-kVw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="3399.1999999999998" y="308.9955022488756"/>
         </scene>
-        <!--View Controller-->
+        <!--Add City View Controller-->
         <scene sceneID="QD6-fr-0Gt">
             <objects>
-                <viewController id="v7f-qV-3GL" sceneMemberID="viewController">
+                <viewController restorationIdentifier="AddScreen" id="v7f-qV-3GL" customClass="AddCityViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UlW-2q-gEu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,6 +141,9 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addPressed:" destination="v7f-qV-3GL" eventType="touchUpInside" id="VzK-h5-rSH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,15 +157,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SDG-By-93V"/>
                     </view>
+                    <connections>
+                        <outlet property="cityNameTextField" destination="cRm-ZG-O62" id="Zkn-fb-INa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wyM-Dm-vs9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4233" y="334"/>
+            <point key="canvasLocation" x="4361" y="210"/>
         </scene>
         <!--Current Weather-->
         <scene sceneID="kwI-CI-Iit">
             <objects>
-                <viewController id="sBP-2r-KSi" customClass="CurrentWeatherViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="CurrentScreen" id="sBP-2r-KSi" customClass="CurrentWeatherViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wqu-up-XsA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,12 +215,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNL-30-Q2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="1109.5952023988007"/>
+            <point key="canvasLocation" x="628" y="1102"/>
         </scene>
         <!--Forecasts-->
         <scene sceneID="j8s-sS-XPH">
             <objects>
-                <viewController id="duW-FZ-2ij" customClass="WeatherForecastViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="ForecastScreen" id="duW-FZ-2ij" customClass="WeatherForecastViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ydO-PM-MQD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -275,7 +281,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tci-0O-jUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1450" y="1063"/>
+            <point key="canvasLocation" x="2082" y="1068"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="H4k-Mn-xFN">

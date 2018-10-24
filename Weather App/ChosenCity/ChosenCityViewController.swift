@@ -54,12 +54,9 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func tableView(_ tableView: UITableView, commit eiditingStyle: UITableViewStyle, forRowAt indexPath: IndexPath) {
-        if indexPath.row != 0 {
-            self.cityNames.remove(at: indexPath.row)
-            self.cityTableView.reloadData()
-        }
+        NSLog(String(indexPath.row))
     }
-    
+
     func loadList() {
         let defaultDB = UserDefaults.standard
         // checks that data of city list exists
