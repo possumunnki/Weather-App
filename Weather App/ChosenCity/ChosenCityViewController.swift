@@ -34,6 +34,15 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            NSLog("Use GPS!")
+        } else {
+            DataHandler.saveCurrentCity(currentCity: cityNames[indexPath.row])
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -53,8 +62,6 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         self.editScreen?.cityNames = self.cityNames
     }
     
-    private func tableView(_ tableView: UITableView, commit eiditingStyle: UITableViewStyle, forRowAt indexPath: IndexPath) {
-        NSLog(String(indexPath.row))
-    }
+
 
 }

@@ -14,11 +14,11 @@ class CityList: NSObject, NSCoding {
     }
     
     required init?(coder decoder: NSCoder) {
-        cities = decoder.decodeObject(forKey: "cityList") as! [String]
+        cities = decoder.decodeObject(forKey: "list") as! [String]
     }
     
     func encode(with encoder: NSCoder) {
-        encoder.encode(cities, forKey: "cityList")
+        encoder.encode(cities, forKey: "list")
     }
     
 }

@@ -15,14 +15,14 @@ class DataHandler {
     
     static func saveCityList(cityList: [String]) {
         let defaultDB = UserDefaults.standard
-        let cities = CityList(cities: cityList)
+        let cities:[String] = cityList
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: cities, requiringSecureCoding: false)
-            defaultDB.set(data, forKey: "list")
+            defaultDB.set(data, forKey: "cityList")
             defaultDB.synchronize()
             NSLog("Saved")
         } catch {
-            NSLog("Could not save!")
+            NSLog("Could not save cityNames!")
         }
     }
     
@@ -30,10 +30,10 @@ class DataHandler {
         var cityNames: [String] = []
         let defaultDB = UserDefaults.standard
         // checks that data of city list exists
-        if let data = defaultDB.object(forKey: "list") as! Data? {
+        if let data = defaultDB.object(forKey: "cityList") as! Data? {
             do {
-                let cities = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
-                cityNames = cities.cities
+                let cityList = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! [String]
+                cityNames = cityList
                 NSLog("Loaded")
             } catch {
                 NSLog("Could not load!")
@@ -44,5 +44,38 @@ class DataHandler {
             cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
         }
         return cityNames
+    }
+    
+    static func saveCurrentCity(currentCity: String) {
+        let defaultDB = UserDefaults.standard
+        let city = currentCity
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: city, requiringSecureCoding: false)
+            defaultDB.set(data, forKey: "currentCity")
+            defaultDB.synchronize()
+            NSLog("Saved Current City")
+        } catch {
+            NSLog("Could not save currentCity!")
+        }
+    }
+    
+    static func loadCurrentCity() -> String{
+        var currentCity: String = ""
+        let defaultDB = UserDefaults.standard
+        // checks that data of city list exists
+        if let data = defaultDB.object(forKey: "currentCity") as! Data? {
+            do {
+                let city = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! String
+                currentCity = city
+                NSLog("currentCity Loaded")
+            } catch {
+                NSLog("Could not load currentCity!")
+                currentCity = "Tampere"
+            }
+            // if not found, creates default list
+        } else {
+            currentCity = "Tampere"
+        }
+        return currentCity
     }
 }
