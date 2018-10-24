@@ -20,7 +20,6 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         //creating some weather data:
         
         let data = weatherCellDatas[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as! WeatherUITableViewCell
         cell.setWeatherCellData(weatherCellData: data)
         
@@ -39,7 +38,6 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         self.forecastsTableView.dataSource = self
         self.forecastsTableView.delegate = self
         self.fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast/?q=Tampere,fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
-        print(self.weatherCellDatas)
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,26 +69,9 @@ class WeatherForecastViewController: UIViewController, UITableViewDataSource, UI
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             self.weatherCellDatas = self.createForecastArray(weatherForecast: weatherForecast)
-            print(self.weatherCellDatas)
+            //tableView must reload because feching happens slower than the tableView is built
             self.forecastsTableView.reloadData()
         })
-    }
-    
-    func createArray() -> [WeatherCellData] {
-        var dataList: [WeatherCellData] = []
-        
-        let weatherData1 = WeatherCellData(imageName: "01d", condition: "aurinkoinen", dateTime: "01/01/2018")
-        let weatherData2 = WeatherCellData(imageName: "02d", condition: "aurinkoinen", dateTime: "01/01/2018")
-        let weatherData3 = WeatherCellData(imageName: "03d", condition: "aurinkoinen", dateTime: "01/01/2018")
-        let weatherData4 = WeatherCellData(imageName: "01d", condition: "aurinkoinen", dateTime: "01/01/2018")
-        let weatherData5 = WeatherCellData(imageName: "02d", condition: "aurinkoinen", dateTime: "01/01/2018")
-        
-        dataList.append(weatherData1)
-        dataList.append(weatherData2)
-        dataList.append(weatherData3)
-        dataList.append(weatherData4)
-        dataList.append(weatherData5)
-        return dataList
     }
     
     func createForecastArray(weatherForecast: WeatherForecast) -> [WeatherCellData] {

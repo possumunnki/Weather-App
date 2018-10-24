@@ -14,14 +14,12 @@ class CurrentWeatherViewController: UIViewController {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
-    var cityName = "Tampere"
-    
+    var cityName = ""
+    var weatherFetcher = WeatherFetcher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,6 +27,13 @@ class CurrentWeatherViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if cityName != DataHandler.loadCurrentCity() {
+            cityName = DataHandler.loadCurrentCity()
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",fi?&units=imperial&APPID=efc139b75863cc75e1bc6bbfa4b446f1")
+            NSLog("FETCHING")
+        }
+    }
     
     func fetchUrl(url : String) {
         let config = URLSessionConfiguration.default
@@ -54,18 +59,16 @@ class CurrentWeatherViewController: UIViewController {
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             //NSLog(resstr!)
-            print(currentWeather)
             self.setUI(weather: currentWeather)
         })
     }
     
     func setUI(weather: CurrentWeather) {
-        print("city name:", self.cityName)
+        //sets city name on label
         self.cityNameLabel.text = self.cityName
-        print("Image:",  weather.weather[0].icon)
         let imageName = weather.weather[0].icon + ".png"
         self.weatherImageView.image = UIImage(named: imageName)
-        print("temp:", weather.main.temp)
+        //converts fahrenheit to celcius and sets on temp label
         let celcius = fahrnheitToCelcius(fahrenheit: weather.main.temp)
         self.tempLabel.text = String(format: "%.1f",celcius) + " °C"
         
