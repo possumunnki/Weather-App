@@ -31,7 +31,6 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         self.cityTableView.dataSource = self
         self.cityTableView.delegate = self
-        self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -42,10 +41,8 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let screen = self.editScreen {
-            self.cityNames = screen.cityNames
-            cityTableView.reloadData()
-        }
+        loadList()
+        cityTableView.reloadData()
         
     }
     
@@ -63,25 +60,22 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func saveList() {
-        let defaultDB = UserDefaults.standard
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: self.cityNames, requiringSecureCoding: false)
-            defaultDB.set(data, forKey: "list")
-            defaultDB.synchronize()
-        } catch {
-            NSLog("Could not save!")
-        }
-    }
-    
     func loadList() {
         let defaultDB = UserDefaults.standard
-        let data = defaultDB.object(forKey: "list") as! Data
-        do {
-            let list = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
-            cityNames = list.cities
-        } catch {
-            NSLog("Could not load!")
+        // checks that data of city list exists
+        if let data = defaultDB.object(forKey: "list") as! Data? {
+            do {
+                let cities = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
+                self.cityNames = cities.cities
+                NSLog("Loaded")
+            } catch {
+                NSLog("Could not load!")
+                self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
+            }
+        // if not found, creates default list
+        } else {
+            self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
         }
+
     }
 }

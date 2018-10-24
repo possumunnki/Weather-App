@@ -66,10 +66,12 @@ class EditCitiesViewController:UITableViewController {
     
     func saveList() {
         let defaultDB = UserDefaults.standard
+        let cities = CityList(cities: self.cityNames)
         do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: self.cityNames, requiringSecureCoding: false)
+            let data = try NSKeyedArchiver.archivedData(withRootObject: cities, requiringSecureCoding: false)
             defaultDB.set(data, forKey: "list")
             defaultDB.synchronize()
+            NSLog("Saved")
         } catch {
             NSLog("Could not save!")
         }
