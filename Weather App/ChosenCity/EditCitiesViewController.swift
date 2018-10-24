@@ -9,11 +9,10 @@
 import Foundation
 import UIKit
 class EditCitiesViewController:UITableViewController {
-    var cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
+    var cityNames: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,6 +34,13 @@ class EditCitiesViewController:UITableViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destViewController = segue.destination as! ChosenCityViewController
+        destViewController.cityNames = self.cityNames
+        print(self.cityNames)
+        
+    }
+    
     override func tableView(_ tableVew: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //avoids user to delete "Use GPS" -row
         if indexPath.row == 0 {
@@ -48,13 +54,24 @@ class EditCitiesViewController:UITableViewController {
         } else {
             let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "DELETE") {(action, index) -> Void in
                 self.cityNames.remove(at: indexPath.row)
+                self.saveList()
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.tableView.reloadData()
             }
             deleteButton.backgroundColor = UIColor.red
+            
             return [deleteButton]
         }
-
-        
+    }
+    
+    func saveList() {
+        let defaultDB = UserDefaults.standard
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: self.cityNames, requiringSecureCoding: false)
+            defaultDB.set(data, forKey: "list")
+            defaultDB.synchronize()
+        } catch {
+            NSLog("Could not save!")
+        }
     }
 }

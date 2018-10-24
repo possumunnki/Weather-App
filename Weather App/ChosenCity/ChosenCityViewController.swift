@@ -13,8 +13,8 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var cityTableView: UITableView!
     
-    var cityNames: [String] = ["Tampere", "Turku", "Helsinki"]
-    
+    var cityNames: [String] = []
+    var editScreen: EditCitiesViewController?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cityNames.count
     }
@@ -31,13 +31,29 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         self.cityTableView.dataSource = self
         self.cityTableView.delegate = self
-        
+        self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let screen = self.editScreen {
+            self.cityNames = screen.cityNames
+            cityTableView.reloadData()
+        }
+        
+    }
+    
+    //Passes list of city to the EditCityViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destViewController = segue.destination as! EditCitiesViewController
+        self.editScreen = destViewController
+        self.editScreen?.cityNames = self.cityNames
     }
     
     private func tableView(_ tableView: UITableView, commit eiditingStyle: UITableViewStyle, forRowAt indexPath: IndexPath) {
