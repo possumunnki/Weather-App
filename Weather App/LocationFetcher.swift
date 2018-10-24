@@ -14,14 +14,14 @@ public class LocationFetcher:NSObject, CLLocationManagerDelegate {
     
     override init() {
         self.locationManager = CLLocationManager()
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         super.init()
         self.locationManager.delegate = self
     }
     
     func fetchLocation() {
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager.startUpdatingLocation()
@@ -32,7 +32,6 @@ public class LocationFetcher:NSObject, CLLocationManagerDelegate {
         let userLocation:CLLocation = locations[0] as CLLocation
         //let atitude = userLocation.coordinate.latitude
         //let longitude = userLocation.coordinate.longitude
-        print("Fetch Location FFS!")
         self.fetchCurrentCity(location: userLocation)
         manager.stopUpdatingLocation()
     }
@@ -58,7 +57,7 @@ public class LocationFetcher:NSObject, CLLocationManagerDelegate {
         
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Error: " + (error.localizedDescription))
     }
 }

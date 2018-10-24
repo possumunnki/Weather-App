@@ -65,8 +65,12 @@ class DataHandler {
         // checks that data of city list exists
         if let data = defaultDB.object(forKey: "currentCity") as! Data? {
             do {
-                let city = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! String
-                currentCity = city
+                if let city = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! String? {
+                    currentCity = city
+                } else {
+                    currentCity = "Tampere"
+                }
+                
                 NSLog("currentCity Loaded")
             } catch {
                 NSLog("Could not load currentCity!")

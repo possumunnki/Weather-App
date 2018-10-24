@@ -7,14 +7,15 @@
 //
 
 import UIKit
-
-class ChosenCityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+import CoreLocation
+class ChosenCityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
     
     @IBOutlet weak var cityTableView: UITableView!
     
     var cityNames: [String] = []
     var editScreen: EditCitiesViewController?
+    var locationManager: CLLocationManager?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cityNames.count
     }
@@ -31,12 +32,14 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         self.cityTableView.dataSource = self
         self.cityTableView.delegate = self
+        self.locationManager = CLLocationManager()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            NSLog("Use GPS!")
+            //not working atm.
+            //fetchLocation()
         } else {
             DataHandler.saveCurrentCity(currentCity: cityNames[indexPath.row])
         }
@@ -62,6 +65,47 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         self.editScreen?.cityNames = self.cityNames
     }
     
-
+    
+    
+    func fetchLocation() {
+        
+        self.locationManager!.delegate = self
+        self.locationManager!.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManager!.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        self.fetchCurrentCity(location: userLocation)
+        manager.stopUpdatingLocation()
+    }
+    
+    func fetchCurrentCity(location: CLLocation) {
+        var address: String = "somewhere"
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            if error != nil {
+                print("reverse geodcode fail: \(error!.localizedDescription)")
+            }
+            let pm = placemarks! as [CLPlacemark]
+            
+            if pm.count > 0 {
+                let pm = placemarks![0]
+                if pm.locality != nil {
+                    address = pm.locality!
+                    DataHandler.saveCurrentCity(currentCity: address)
+                    print(address)
+                }
+            }
+        })
+        
+    }
+    
+    private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error: " + (error.localizedDescription))
+    }
 
 }
