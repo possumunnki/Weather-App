@@ -13,6 +13,7 @@ class EditCitiesViewController:UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +42,7 @@ class EditCitiesViewController:UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadList()
+        self.cityNames = DataHandler.loadCityList()
         self.tableView.reloadData()
         
     }
@@ -58,7 +59,7 @@ class EditCitiesViewController:UITableViewController {
         } else {
             let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "DELETE") {(action, index) -> Void in
                 self.cityNames.remove(at: indexPath.row)
-                self.saveList()
+                DataHandler.saveCityList(cityList: self.cityNames)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.tableView.reloadData()
             }
@@ -68,34 +69,5 @@ class EditCitiesViewController:UITableViewController {
         }
     }
     
-    func saveList() {
-        let defaultDB = UserDefaults.standard
-        let cities = CityList(cities: self.cityNames)
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: cities, requiringSecureCoding: false)
-            defaultDB.set(data, forKey: "list")
-            defaultDB.synchronize()
-            NSLog("Saved")
-        } catch {
-            NSLog("Could not save!")
-        }
-    }
-    func loadList() {
-        let defaultDB = UserDefaults.standard
-        // checks that data of city list exists
-        if let data = defaultDB.object(forKey: "list") as! Data? {
-            do {
-                let cities = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
-                self.cityNames = cities.cities
-                NSLog("Loaded")
-            } catch {
-                NSLog("Could not load!")
-                self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
-            }
-            // if not found, creates default list
-        } else {
-            self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
-        }
-        
-    }
+
 }

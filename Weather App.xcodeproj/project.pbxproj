@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E319E951218072B500792186 /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319E950218072B500792186 /* AddCityViewController.swift */; };
+		E319E9552180893700792186 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319E9542180893700792186 /* DataHandler.swift */; };
 		E31B3590216B7A9B00F0C968 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31B358F216B7A9B00F0C968 /* LocationFetcher.swift */; };
 		E3683233216CB0C500D9A51A /* WeatherFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3683232216CB0C500D9A51A /* WeatherFetcher.swift */; };
 		E36CA9D42168CD7D0004285C /* WeatherUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36CA9D32168CD7D0004285C /* WeatherUITableViewCell.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		E319E950218072B500792186 /* AddCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewController.swift; sourceTree = "<group>"; };
+		E319E9542180893700792186 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		E31B358F216B7A9B00F0C968 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
 		E3683232216CB0C500D9A51A /* WeatherFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFetcher.swift; sourceTree = "<group>"; };
 		E36CA9D32168CD7D0004285C /* WeatherUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				E3E775432164E09700A8FBA3 /* WeatherForeCast */,
 				E3E775442164E0A900A8FBA3 /* ChosenCity */,
 				E3E775142164BDC000A8FBA3 /* AppDelegate.swift */,
+				E319E9542180893700792186 /* DataHandler.swift */,
 				E31B358F216B7A9B00F0C968 /* LocationFetcher.swift */,
 				E3683232216CB0C500D9A51A /* WeatherFetcher.swift */,
 				E3CC08022167D08600C435B1 /* Assets.xcassets */,
@@ -345,6 +348,7 @@
 				E3C7944F217F53C600ED9D32 /* CityList.swift in Sources */,
 				E3CC08012167C23A00C435B1 /* CurrentWeather.swift in Sources */,
 				E3683233216CB0C500D9A51A /* WeatherFetcher.swift in Sources */,
+				E319E9552180893700792186 /* DataHandler.swift in Sources */,
 				E319E951218072B500792186 /* AddCityViewController.swift in Sources */,
 				E3A4B791216F514E00FD4C1C /* EditCitiesUITableViewCell.swift in Sources */,
 				E36CA9D62168D0B40004285C /* WeatherCellData.swift in Sources */,

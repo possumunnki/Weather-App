@@ -41,7 +41,7 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadList()
+        self.cityNames = DataHandler.loadCityList()
         cityTableView.reloadData()
         
     }
@@ -57,22 +57,4 @@ class ChosenCityViewController: UIViewController, UITableViewDataSource, UITable
         NSLog(String(indexPath.row))
     }
 
-    func loadList() {
-        let defaultDB = UserDefaults.standard
-        // checks that data of city list exists
-        if let data = defaultDB.object(forKey: "list") as! Data? {
-            do {
-                let cities = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! CityList
-                self.cityNames = cities.cities
-                NSLog("Loaded")
-            } catch {
-                NSLog("Could not load!")
-                self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
-            }
-        // if not found, creates default list
-        } else {
-            self.cityNames = ["Use GPS","Tampere","Turku","Helsinki"]
-        }
-
-    }
 }

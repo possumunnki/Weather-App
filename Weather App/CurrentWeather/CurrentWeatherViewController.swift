@@ -32,7 +32,7 @@ class CurrentWeatherViewController: UIViewController {
             }
         }*/
         
-
+        
     }
     
     override func didReceiveMemoryWarning() {

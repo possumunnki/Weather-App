@@ -16,23 +16,9 @@ class AddCityViewController: UIViewController {
     @IBAction func addPressed(_ sender: Any) {
         if cityNameTextField.text != "" {
             cityNames.append(cityNameTextField.text!)
-            saveList()
+            DataHandler.saveCityList(cityList: self.cityNames)
         }
         self.navigationController?.popViewController(animated: true)
     }
-    
-    func saveList() {
-        let defaultDB = UserDefaults.standard
-        let cities = CityList(cities: self.cityNames)
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: cities, requiringSecureCoding: false)
-            defaultDB.set(data, forKey: "list")
-            defaultDB.synchronize()
-            NSLog("Saved")
-        } catch {
-            NSLog("Could not save!")
-        }
-    }
-    
-    
+
 }
